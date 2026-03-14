@@ -148,13 +148,11 @@ for v in range(3):
     ax = axes[0, v]
     for res in results:
         color = res['color']
-        c_true = res['c_true_hist'][:, v]
         c_hat = res['c_hat_hist'][:, v]
         P = res['P_hist'][:, v]
         std = np.sqrt(np.clip(P, 0, None))
         half_band = np.minimum(1.96 * std, 0.15)
         ax.fill_between(t, np.clip(c_hat - half_band, 0, 1), np.clip(c_hat + half_band, 0, 1), alpha=0.10, color=color)
-        ax.plot(t, c_true, color=color, linewidth=2.2, label=f"{res['name']} (true)")
         ax.plot(t, c_hat, color=color, linestyle='--', linewidth=1.5, alpha=0.7, label=f"{res['name']} (EKF)")
         ax.scatter(res['obs_times'][v], res['obs_hist'][v], color=color, s=12, alpha=0.5)
     ax.axhline(c_star_vec[v], color='k', linestyle='--', linewidth=0.9, label='$c^*$')
@@ -210,13 +208,11 @@ for v in range(3):
     fig_single, ax_single = plt.subplots(figsize=(6, 4))
     for res in results:
         color = res['color']
-        c_true = res['c_true_hist'][:, v]
         c_hat = res['c_hat_hist'][:, v]
         P = res['P_hist'][:, v]
         std = np.sqrt(np.clip(P, 0, None))
         half_band = np.minimum(1.96 * std, 0.15)
         ax_single.fill_between(t, np.clip(c_hat - half_band, 0, 1), np.clip(c_hat + half_band, 0, 1), alpha=0.10, color=color)
-        ax_single.plot(t, c_true, color=color, linewidth=2.2, label=f"{res['name']} (true)")
         ax_single.plot(t, c_hat, color=color, linestyle='--', linewidth=1.5, alpha=0.7, label=f"{res['name']} (EKF)")
         ax_single.scatter(res['obs_times'][v], res['obs_hist'][v], color=color, s=20, alpha=0.5)
     ax_single.axhline(c_star_vec[v], color='k', linestyle='--', linewidth=0.9, label='$c^*$')
