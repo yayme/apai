@@ -36,7 +36,24 @@ def schedule_full_ai(_c_hat):
 def schedule_full_human(_c_hat):
     return np.full(3, 1.0)
 
+# def schedule_apai(c_hat):
+#     u = np.full(3, 0.5)
+#     for v in range(3):
+#         if c_hat[v] < c_star_vec[v] - 0.05:
+#             u[v] = 0.55 + 0.35 * max(0, (c_star_vec[v] - c_hat[v])) / c_star_vec[v]
+#     return u
+def u_eq(c_hat_v, v):
+    """Break-even deterrent: minimum u to prevent decay at current c_hat."""
+    c_safe = np.clip(c_hat_v, 1e-6, 1.0)
+    Lambda_v = lam_vec[v]  # scalar approximation for policy use
+    return Lambda_v / (mu_vec[v] * c_safe**alpha + Lambda_v)
+
 def schedule_apai(c_hat):
+    """
+    Greedy threshold policy derived from eq. (10).
+    Below c*_v - deadband: reactive boost linearly scaling toward u=0.9.
+    Otherwise: hold at u=0.5 (above break-even for all reasonable c_hat).
+    """
     u = np.full(3, 0.5)
     for v in range(3):
         if c_hat[v] < c_star_vec[v] - 0.05:
