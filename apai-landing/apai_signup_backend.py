@@ -47,14 +47,19 @@ def signup():
 
 @app.route('/admin/emails')
 def show_emails():
-    conn = psycopg2.connect(DATABASE_URL)
-    cur = conn.cursor()
-    cur.execute('SELECT email, created_at FROM emails ORDER BY created_at DESC')
-    rows = cur.fetchall()
-    cur.close()
-    conn.close()
-    emails_html = '\n'.join([f"{email} ({created_at})" for email, created_at in rows])
-    return f"<pre>{emails_html}</pre>"
+    try:
+        conn = psycopg2.connect(DATABASE_URL)
+        cur = conn.cursor()
+        cur.execute('SELECT email, created_at FROM emails ORDER BY created_at DESC')
+        rows = cur.fetchall()
+        cur.close()
+        conn.close()
+        if not rows:
+            return '<pre>No emails have been signed up yet.</pre>'
+        emails_html = '\n'.join([f"{email} ({created_at})" for email, created_at in rows])
+        return f"<pre>{emails_html}</pre>"
+    except Exception as e:
+        return f"<pre>Error: {str(e)}</pre>"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
