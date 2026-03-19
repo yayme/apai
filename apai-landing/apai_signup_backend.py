@@ -1,12 +1,38 @@
 
 import os
 import psycopg2
+from functools import wraps
+from flask import Response
 from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
 
 # Get the database URL from Render environment variable
 DATABASE_URL = os.environ.get('DATABASE_URL')
+
+# Admin credentials (set your own username and password)
+ADMIN_USER = os.environ.get('ADMIN_USER', 'admin')
+ADMIN_PASS = os.environ.get('ADMIN_PASS', 'password')
+
+# Basic Auth decorator
+def check_auth(username, password):
+    return username == ADMIN_USER and password == ADMIN_PASS
+
+def authenticate():
+    return Response(
+        'Could not verify your access. Please provide valid credentials.',
+        401,
+        {'WWW-Authenticate': 'Basic realm="Login Required"'}
+    )
+
+def requires_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth or not check_auth(auth.username, auth.password):
+            return authenticate()
+        return f(*args, **kwargs)
+    return decorated
 
 # Ensure table exists
 def init_db():
@@ -46,6 +72,7 @@ def signup():
         return jsonify({'success': False, 'message': str(e)}), 500
 
 @app.route('/admin/emails')
+@requires_auth
 def show_emails():
     try:
         conn = psycopg2.connect(DATABASE_URL)
