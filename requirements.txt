@@ -2,3 +2,4 @@ google-generativeai
 matplotlib
 scipy
 numpy
+flask
