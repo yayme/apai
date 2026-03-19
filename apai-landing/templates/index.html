@@ -57,6 +57,31 @@
         <input id="signup-email" type="email" placeholder="Enter your email" required style="padding:12px 16px;font-size:1.1rem;border-radius:6px;border:1.5px solid #0f6e56;outline:none;flex:1;" />
         <button type="submit" class="btn btn-primary" style="padding:12px 28px;font-size:1.1rem;">Get Early Access</button>
       </form>
+      <div id="signup-feedback" style="color:#0f6e56;font-weight:600;margin-top:8px;"></div>
+      <script>
+        document.querySelector('form').addEventListener('submit', async function(e) {
+          e.preventDefault();
+          const email = document.getElementById('signup-email').value;
+          const feedback = document.getElementById('signup-feedback');
+          feedback.textContent = '';
+          try {
+            const res = await fetch('/signup', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email })
+            });
+            const data = await res.json();
+            if (data.success) {
+              feedback.textContent = 'Thank you! You will be notified.';
+              document.getElementById('signup-email').value = '';
+            } else {
+              feedback.textContent = data.message || 'Signup failed.';
+            }
+          } catch (err) {
+            feedback.textContent = 'Error submitting email.';
+          }
+        });
+      </script>
       <div style="color:#0f6e56;font-weight:600;">Be the first to try APAI when it launches.</div>
     </div>
   </section>
