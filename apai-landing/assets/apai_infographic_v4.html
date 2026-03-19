@@ -1,0 +1,258 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .root { padding: 1.5rem; font-family: var(--font-sans); }
+  .headline { text-align: center; margin-bottom: 1.25rem; }
+  .headline h1 { font-size: 20px; font-weight: 500; color: var(--color-text-primary); line-height: 1.3; }
+  .headline p { font-size: 13px; color: var(--color-text-secondary); margin-top: 0.3rem; }
+  .top-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .panel { border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem; }
+  .panel-title { font-size: 10px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-border-tertiary); }
+  .panel-title.problem { color: var(--color-text-danger); }
+  .panel-title.solution { color: var(--color-text-success); }
+  .item { display: flex; gap: 0.65rem; align-items: flex-start; margin-bottom: 0.8rem; }
+  .item:last-child { margin-bottom: 0; }
+  .ico { width: 34px; height: 34px; border-radius: var(--border-radius-md); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .ico.p { background: var(--color-background-danger); }
+  .ico.s { background: var(--color-background-success); }
+  .ico svg { width: 17px; height: 17px; }
+  .item h3 { font-size: 12px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 2px; }
+  .item p { font-size: 11.5px; color: var(--color-text-secondary); line-height: 1.5; }
+  .bottom-row { display: grid; grid-template-columns: 1fr 1.6fr; gap: 1rem; margin-bottom: 1rem; }
+  .diagram-panel { border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem; }
+  .diagram-title { font-size: 10px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-border-tertiary); }
+  .spectrum-wrap { border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem; }
+  .spectrum-title { font-size: 10px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-border-tertiary); }
+  .spectrum { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.65rem; }
+  .tier { border-radius: var(--border-radius-md); padding: 0.7rem; }
+  .tier.high { background: var(--color-background-info); border: 1px solid var(--color-border-info); }
+  .tier.mid { background: var(--color-background-warning); border: 1px solid var(--color-border-warning); }
+  .tier.low { background: var(--color-background-success); border: 1px solid var(--color-border-success); }
+  .tier-label { font-size: 9.5px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 3px; }
+  .tier.high .tier-label { color: var(--color-text-info); }
+  .tier.mid .tier-label { color: var(--color-text-warning); }
+  .tier.low .tier-label { color: var(--color-text-success); }
+  .tier h3 { font-size: 12px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 3px; }
+  .tier p { font-size: 11px; color: var(--color-text-secondary); line-height: 1.45; }
+  .arrow-row { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.6rem; }
+  .arrow-row span { font-size: 10.5px; color: var(--color-text-tertiary); white-space: nowrap; }
+  .arrow-line { flex: 1; height: 1px; background: var(--color-border-secondary); }
+</style>
+
+<div class="root">
+  <div class="headline">
+    <h1>The AI Paradox: Preserving Human Autonomy in an Era of Automation</h1>
+    <p>From silent atrophy to Autonomy Preserving AI (APAI): balancing productivity with long-run skill retention</p>
+  </div>
+
+  <div class="top-columns">
+    <div class="panel">
+      <div class="panel-title problem">The problem: silent atrophy of human skill</div>
+      <div class="item">
+        <div class="ico p">
+          <svg viewBox="0 0 20 20" fill="none" stroke="var(--color-text-danger)" stroke-width="1.5">
+            <path d="M10 3v7l4 4" stroke-linecap="round"/>
+            <circle cx="10" cy="10" r="7"/>
+          </svg>
+        </div>
+        <div>
+          <h3>The atrophy basin</h3>
+          <p>Over-reliance on AI causes proficiency to drift past a point of no return, where independent skill cannot recover even with renewed effort.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="ico p">
+          <svg viewBox="0 0 20 20" fill="none" stroke="var(--color-text-danger)" stroke-width="1.5">
+            <polyline points="3,14 7,9 11,12 17,5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Measured skill decline</h3>
+          <p>A 2023 study found sustained GitHub Copilot users showed measurable drops in independent problem-solving ability.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="ico p">
+          <svg viewBox="0 0 20 20" fill="none" stroke="var(--color-text-danger)" stroke-width="1.5">
+            <rect x="3" y="10" width="4" height="7" rx="1"/>
+            <rect x="8" y="6" width="4" height="11" rx="1"/>
+            <rect x="13" y="3" width="4" height="14" rx="1"/>
+            <line x1="3" y1="10" x2="17" y2="3" stroke-dasharray="2 2"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Prerequisite cascades</h3>
+          <p>Losing a foundational skill accelerates decay in every skill that depends on it, amplifying atrophy silently downstream.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title solution">The solution: the APAI framework</div>
+      <div class="item">
+        <div class="ico s">
+          <svg viewBox="0 0 20 20" fill="none" stroke="var(--color-text-success)" stroke-width="1.5">
+            <circle cx="10" cy="10" r="3"/>
+            <path d="M10 3v2M10 15v2M3 10h2M15 10h2M5.5 5.5l1.4 1.4M13.1 13.1l1.4 1.4M5.5 14.5l1.4-1.4M13.1 6.9l1.4-1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Continuous capability estimation</h3>
+          <p>APAI silently monitors how the user interacts with the AI, using response patterns to estimate current skill level in real time.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="ico s">
+          <svg viewBox="0 0 20 20" fill="none" stroke="var(--color-text-success)" stroke-width="1.5">
+            <path d="M4 14l4-4 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="2" y="2" width="16" height="16" rx="3"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Dynamic deterrent levels</h3>
+          <p>When skill dips toward danger, APAI reduces AI assistance to push the user to engage more. As skill recovers, assistance relaxes.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="ico s">
+          <svg viewBox="0 0 20 20" fill="none" stroke="var(--color-text-success)" stroke-width="1.5">
+            <path d="M4 6h12M4 10h8M4 14h5" stroke-linecap="round"/>
+            <circle cx="15" cy="13" r="3"/>
+            <path d="M14 13l1 1 2-2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Adaptive system prompting</h3>
+          <p>The AI response shifts from complete solutions to Socratic guidance to foundational teaching, based on current skill level.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-row">
+
+    <div class="diagram-panel">
+      <div class="diagram-title">APAI closed loop architecture</div>
+      <svg width="100%" viewBox="0 0 340 220">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+
+        <rect x="4" y="80" width="88" height="44" rx="8" fill="var(--color-background-info)" stroke="var(--color-border-info)" stroke-width="0.5"/>
+        <text x="48" y="98" text-anchor="middle" font-family="var(--font-sans)" font-size="9.5" font-weight="500" fill="var(--color-text-info)">User + LLM</text>
+        <text x="48" y="113" text-anchor="middle" font-family="var(--font-sans)" font-size="9" fill="var(--color-text-info)">Session</text>
+
+        <rect x="126" y="80" width="96" height="44" rx="8" fill="var(--color-background-warning)" stroke="var(--color-border-warning)" stroke-width="0.5"/>
+        <text x="174" y="98" text-anchor="middle" font-family="var(--font-sans)" font-size="9.5" font-weight="500" fill="var(--color-text-warning)">Engagement</text>
+        <text x="174" y="113" text-anchor="middle" font-family="var(--font-sans)" font-size="9" fill="var(--color-text-warning)">observation</text>
+
+        <rect x="236" y="20" width="96" height="44" rx="8" fill="var(--color-background-success)" stroke="var(--color-border-success)" stroke-width="0.5"/>
+        <text x="284" y="38" text-anchor="middle" font-family="var(--font-sans)" font-size="9.5" font-weight="500" fill="var(--color-text-success)">Capability</text>
+        <text x="284" y="53" text-anchor="middle" font-family="var(--font-sans)" font-size="9" fill="var(--color-text-success)">estimator</text>
+
+        <rect x="236" y="140" width="96" height="44" rx="8" fill="var(--color-background-success)" stroke="var(--color-border-success)" stroke-width="0.5"/>
+        <text x="284" y="158" text-anchor="middle" font-family="var(--font-sans)" font-size="9.5" font-weight="500" fill="var(--color-text-success)">Assistance</text>
+        <text x="284" y="173" text-anchor="middle" font-family="var(--font-sans)" font-size="9" fill="var(--color-text-success)">policy</text>
+
+        <rect x="126" y="140" width="96" height="44" rx="8" fill="var(--color-background-warning)" stroke="var(--color-border-warning)" stroke-width="0.5"/>
+        <text x="174" y="158" text-anchor="middle" font-family="var(--font-sans)" font-size="9.5" font-weight="500" fill="var(--color-text-warning)">Deterrent</text>
+        <text x="174" y="173" text-anchor="middle" font-family="var(--font-sans)" font-size="9" fill="var(--color-text-warning)">level</text>
+
+        <rect x="224" y="10" width="112" height="184" rx="8" fill="none" stroke="var(--color-border-secondary)" stroke-width="0.6" stroke-dasharray="3 3"/>
+        <text x="280" y="204" text-anchor="middle" font-family="var(--font-sans)" font-size="8" fill="var(--color-text-tertiary)" font-style="italic">APAI middleware</text>
+
+        <line x1="92" y1="102" x2="124" y2="102" stroke="var(--color-text-secondary)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <text x="108" y="96" text-anchor="middle" font-family="var(--font-sans)" font-size="8" fill="var(--color-text-tertiary)">signals</text>
+
+        <line x1="222" y1="102" x2="238" y2="58" stroke="var(--color-text-secondary)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+
+        <line x1="284" y1="64" x2="284" y2="138" stroke="var(--color-text-secondary)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <text x="296" y="106" font-family="var(--font-sans)" font-size="8" fill="var(--color-text-tertiary)">estimate</text>
+
+        <line x1="236" y1="162" x2="224" y2="162" stroke="var(--color-text-secondary)" stroke-width="1" marker-end="url(#arr)" fill="none"/>
+        <text x="230" y="156" text-anchor="middle" font-family="var(--font-sans)" font-size="8" fill="var(--color-text-tertiary)">policy</text>
+
+        <path d="M126 162 L48 162 L48 126" fill="none" stroke="var(--color-text-secondary)" stroke-width="1" marker-end="url(#arr)"/>
+        <text x="70" y="172" font-family="var(--font-sans)" font-size="8" fill="var(--color-text-tertiary)">adjusts LLM help</text>
+      </svg>
+    </div>
+
+    <div class="diagram-panel">
+      <div class="diagram-title">Prerequisite skill graph</div>
+      <svg width="100%" viewBox="0 0 360 190">
+        <defs>
+          <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+
+        <g class="c-gray">
+          <rect x="130" y="10" width="100" height="34" rx="7" stroke-width="0.5"/>
+          <text class="th" x="180" y="31" text-anchor="middle" dominant-baseline="central">Arithmetic</text>
+        </g>
+
+        <line x1="160" y1="44" x2="100" y2="84" stroke="var(--color-text-tertiary)" stroke-width="1" marker-end="url(#arr2)" fill="none"/>
+        <line x1="200" y1="44" x2="260" y2="84" stroke="var(--color-text-tertiary)" stroke-width="1" marker-end="url(#arr2)" fill="none"/>
+
+        <g class="c-blue">
+          <rect x="30" y="86" width="130" height="34" rx="7" stroke-width="0.5"/>
+          <text class="th" x="95" y="107" text-anchor="middle" dominant-baseline="central">Probability</text>
+        </g>
+
+        <g class="c-teal">
+          <rect x="200" y="86" width="130" height="34" rx="7" stroke-width="0.5"/>
+          <text class="th" x="265" y="107" text-anchor="middle" dominant-baseline="central">Linear Algebra</text>
+        </g>
+
+        <line x1="65" y1="120" x2="40" y2="148" stroke="var(--color-text-tertiary)" stroke-width="1" marker-end="url(#arr2)" fill="none"/>
+        <line x1="235" y1="120" x2="185" y2="148" stroke="var(--color-text-tertiary)" stroke-width="1" marker-end="url(#arr2)" fill="none"/>
+        <line x1="295" y1="120" x2="305" y2="148" stroke="var(--color-text-tertiary)" stroke-width="1" marker-end="url(#arr2)" fill="none"/>
+
+        <g class="c-purple">
+          <rect x="4" y="150" width="100" height="34" rx="7" stroke-width="0.5"/>
+          <text class="th" x="54" y="171" text-anchor="middle" dominant-baseline="central">Markov Chains</text>
+        </g>
+
+        <g class="c-amber">
+          <rect x="148" y="150" width="100" height="34" rx="7" stroke-width="0.5"/>
+          <text class="th" x="198" y="171" text-anchor="middle" dominant-baseline="central">Optimization</text>
+        </g>
+
+        <g class="c-green">
+          <rect x="258" y="150" width="100" height="34" rx="7" stroke-width="0.5"/>
+          <text class="th" x="308" y="171" text-anchor="middle" dominant-baseline="central">Neural Networks</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="spectrum-wrap">
+    <div class="spectrum-title">APAI adaptation spectrum: how assistance level adapts to skill state</div>
+    <div class="spectrum">
+      <div class="tier high">
+        <div class="tier-label">Retention priority</div>
+        <h3>Full human mode</h3>
+        <p>Skill is critically low. The AI redirects to foundational concepts and quizzes the user before engaging with the submitted problem.</p>
+      </div>
+      <div class="tier mid">
+        <div class="tier-label">Balance</div>
+        <h3>Partial assistance</h3>
+        <p>Skill is recovering. The AI provides the problem setup and first step only, then asks a guiding question to keep the user thinking.</p>
+      </div>
+      <div class="tier low">
+        <div class="tier-label">Utility priority</div>
+        <h3>Full assistance</h3>
+        <p>Skill is healthy. The AI provides a complete, clearly structured solution. Capability preservation is not active.</p>
+      </div>
+    </div>
+    <div class="arrow-row">
+      <span>skill critically low</span>
+      <div class="arrow-line"></div>
+      <span>&#8594;</span>
+      <div class="arrow-line"></div>
+      <span>skill healthy</span>
+    </div>
+  </div>
+</div>
