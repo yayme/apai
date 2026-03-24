@@ -1,6 +1,0 @@
-flask
-google-generativeai
-matplotlib
-scipy
-numpy
-psycopg2-binary
