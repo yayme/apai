@@ -12,37 +12,53 @@
   <!-- Navbar (minimal) -->
   <nav class="navbar" id="navbar">
     <div class="navbar-logo">APAI</div>
-    <div class="navbar-links">
+    <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <div class="navbar-links" id="navbar-links">
       <a href="#problem">Problem</a>
       <a href="#framework">Framework</a>
       <a href="#about">Team</a>
       <a href="#about">Collaborate</a>
     </div>
   </nav>
-
-  <!-- Value Proposition -->
-  <section class="hero" id="hero">
-    <div class="hero-bg" style="background:linear-gradient(120deg,#eaf7f4 60%,#fffbe6 100%);position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;opacity:0.7;"></div>
-    <div class="hero-content" style="position:relative;z-index:1;max-width:900px;margin:0 auto;padding:64px 0 48px 0;text-align:center;">
-      <div class="hero-title" style="font-size:3.2rem;font-family:'Playfair Display',serif;font-weight:900;color:#0f6e56;margin-bottom:24px;letter-spacing:1px;">Autonomy Preserving AI (APAI)</div>
-      <div class="hero-subtitle" style="font-size:1.7rem;max-width:700px;margin:0 auto 24px auto;color:#1a1a2e;font-weight:600;line-height:1.4;">
-        Adaptive AI middleware for researchers, students, and professionals who want the power of AI without losing their own skills. APAI uniquely preserves your capability by modulating help based on your real-time engagement.
-      </div>
-      <div class="hero-desc" style="font-size:1.25rem;max-width:700px;margin:0 auto 40px auto;color:#ba7517;font-weight:500;">
-        <em>“AI that helps you, but never lets you silently decay.”</em>
-      </div>
-      <div class="hero-grid" style="display:flex;gap:24px;justify-content:center;max-width:700px;margin:0 auto 0 auto;">
-        <div class="hero-box dag-box" style="flex:1;background:#eaf7f4;padding:32px 18px;text-align:center;border-radius:18px;box-shadow:0 2px 12px rgba(15,110,86,0.08);transition:transform 0.22s cubic-bezier(.4,2,.6,1),box-shadow 0.22s;cursor:pointer;">
-          <div style="font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:700;color:#0f6e56;margin-bottom:6px;">DAG</div>
-          <div style="font-size:1rem;color:#1a1a2e;line-height:1.5;">Prerequisite skill graph</div>
-        </div>
-        <div class="hero-box llm-box" style="flex:1;background:#fffbe6;padding:32px 18px;text-align:center;border-radius:18px;box-shadow:0 2px 12px rgba(186,117,23,0.08);transition:transform 0.22s cubic-bezier(.4,2,.6,1),box-shadow 0.22s;cursor:pointer;">
-          <div style="font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:700;color:#ba7517;margin-bottom:6px;">LLM</div>
-          <div style="font-size:1rem;color:#1a1a2e;line-height:1.5;">Adaptive prompt modulation</div>
-        </div>
-        <div class="hero-box agent-box" style="flex:1;background:#f0faf7;padding:32px 18px;text-align:center;border-radius:18px;box-shadow:0 2px 12px rgba(15,110,86,0.08);transition:transform 0.22s cubic-bezier(.4,2,.6,1),box-shadow 0.22s;cursor:pointer;">
-          <div style="font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:700;color:#0f6e56;margin-bottom:6px;">Agent</div>
-          <div style="font-size:1rem;color:#1a1a2e;line-height:1.5;">Autonomous capability monitor</div>
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > window.innerHeight * 0.6);
+    });
+    // Hamburger menu for mobile
+    const navbarToggle = document.getElementById('navbar-toggle');
+    const navbarLinks = document.getElementById('navbar-links');
+    navbarToggle.addEventListener('click', function() {
+      navbarLinks.classList.toggle('open');
+      navbarToggle.classList.toggle('open');
+    });
+    // Close menu on link click (mobile)
+    document.querySelectorAll('.navbar-links a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+        if (window.innerWidth <= 900) {
+          navbarLinks.classList.remove('open');
+          navbarToggle.classList.remove('open');
+        }
+      });
+    });
+    // Fade-in sections
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-section').forEach(s => observer.observe(s));
+  </script>
         </div>
       </div>
     </div>
