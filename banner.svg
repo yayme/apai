@@ -1,217 +1,244 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 210" width="820">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 200" width="820">
   <defs>
     <style>
-      text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+      text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif; }
 
-      /* ── Skill bars ── */
-      .bar-a {
-        fill: #58a6ff;
-        transform-box: fill-box;
-        transform-origin: 50% 100%;
-        animation: ba 10s cubic-bezier(.45,0,.55,1) infinite;
-      }
-      .bar-p {
-        fill: #3fb950;
-        transform-box: fill-box;
-        transform-origin: 50% 100%;
-        animation: bp 10s cubic-bezier(.45,0,.55,1) infinite;
-        animation-delay: -1.5s;
-      }
-      .bar-m {
-        fill: #bc8cff;
-        transform-box: fill-box;
-        transform-origin: 50% 100%;
-        animation: bm 10s cubic-bezier(.45,0,.55,1) infinite;
-        animation-delay: -3s;
-      }
-      @keyframes ba {
-        0%,100% { transform: scaleY(0.88); fill: #58a6ff; }
-        35%     { transform: scaleY(0.14); fill: #f85149; }
-        65%     { transform: scaleY(0.56); fill: #d29922; }
-      }
-      @keyframes bp {
-        0%,100% { transform: scaleY(0.82); fill: #3fb950; }
-        35%     { transform: scaleY(0.11); fill: #f85149; }
-        65%     { transform: scaleY(0.50); fill: #d29922; }
-      }
-      @keyframes bm {
-        0%,100% { transform: scaleY(0.74); fill: #bc8cff; }
-        35%     { transform: scaleY(0.07); fill: #f85149; }
-        65%     { transform: scaleY(0.43); fill: #d29922; }
+      /* ── DAG node color cycle: blue(healthy) → red(atrophy) → amber(recover) ── */
+      .n1,.n2,.n3,.n4,.n5,.n6 { stroke-width: 1.2; fill: #0d2d6a; stroke: #58a6ff; }
+
+      .n1 { animation: nc 10s ease-in-out infinite; }
+      .n2 { animation: nc 10s ease-in-out infinite; animation-delay: -1s; }
+      .n3 { animation: nc 10s ease-in-out infinite; animation-delay: -1.5s; }
+      .n4 { animation: nc 10s ease-in-out infinite; animation-delay: -2s; }
+      .n5 { animation: nc 10s ease-in-out infinite; animation-delay: -2.4s; }
+      .n6 { animation: nc 10s ease-in-out infinite; animation-delay: -2.8s; }
+
+      @keyframes nc {
+        0%,14%   { fill: #0d2d6a; stroke: #58a6ff; }
+        30%,44%  { fill: #6e1116; stroke: #f85149; }
+        60%,74%  { fill: #3d2900; stroke: #d29922; }
+        88%,100% { fill: #0d2d6a; stroke: #58a6ff; }
       }
 
-      /* ── AI assistance bar (inverse of skills) ── */
-      .bar-ai {
-        fill: #3fb950;
-        transform-box: fill-box;
-        transform-origin: 50% 100%;
-        animation: bai 10s cubic-bezier(.45,0,.55,1) infinite;
+      /* ── Overseer core pulse ── */
+      .oc {
+        fill: #071a07; stroke-width: 1.5; stroke: #238636;
+        animation: oca 3s ease-in-out infinite;
       }
-      @keyframes bai {
-        0%,100% { transform: scaleY(0.16); fill: #3fb950; }
-        35%     { transform: scaleY(0.96); fill: #f85149; }
-        65%     { transform: scaleY(0.54); fill: #d29922; }
+      @keyframes oca {
+        0%,100% { stroke: #238636; }
+        50%     { stroke: #3fb950; filter: drop-shadow(0 0 10px #3fb95055); }
       }
 
-      /* ── APAI pulse rings ── */
-      .ring {
-        fill: none;
-        stroke: #58a6ff;
-        stroke-width: 1.5;
-        transform-box: fill-box;
-        transform-origin: 50% 50%;
-        animation: ring 2.6s ease-out infinite;
-        opacity: 0;
+      /* ── Overseer pulse rings ── */
+      .pr1,.pr2,.pr3 {
+        fill: none; stroke: #3fb950; stroke-width: 1.5; opacity: 0;
+        animation: pr 3s ease-out infinite;
       }
-      .ring2 { animation-delay: -0.87s; }
-      .ring3 { animation-delay: -1.73s; }
-      @keyframes ring {
-        0%   { transform: scale(0.25); opacity: 0.9; }
-        100% { transform: scale(2.4);  opacity: 0;   }
+      .pr2 { animation-delay: -1s; }
+      .pr3 { animation-delay: -2s; }
+      @keyframes pr {
+        0%   { r: 20; opacity: 0.7; }
+        100% { r: 56; opacity: 0; }
       }
 
-      /* ── Flowing arrows ── */
-      .flow-r {
-        stroke: #58a6ff;
-        stroke-width: 1.5;
-        stroke-dasharray: 5 3;
-        fill: none;
-        animation: flo 1s linear infinite;
-      }
-      @keyframes flo {
-        from { stroke-dashoffset: 8; }
-        to   { stroke-dashoffset: 0; }
-      }
+      /* ── Scan arm rotation ── */
+      .sa { transform-origin: 0 0; animation: sarot 5s linear infinite; }
+      @keyframes sarot { to { transform: rotate(360deg); } }
 
-      /* ── Mode labels (opacity toggle) ── */
-      .lbl-full { animation: lf 10s cubic-bezier(.45,0,.55,1) infinite; }
-      .lbl-defl { animation: ld 10s cubic-bezier(.45,0,.55,1) infinite; opacity: 0; }
-      .lbl-part { animation: lp 10s cubic-bezier(.45,0,.55,1) infinite; opacity: 0; }
-      @keyframes lf {
-        0%,18%,82%,100% { opacity: 1; }
-        35%,65%         { opacity: 0; }
+      /* ── Signal flow arrows ── */
+      .sf-b {
+        stroke: #1f6feb; stroke-width: 1.2; stroke-dasharray: 4 3; fill: none;
+        animation: sf .9s linear infinite;
       }
-      @keyframes ld {
-        0%,22%   { opacity: 0; }
-        35%      { opacity: 1; }
-        48%,100% { opacity: 0; }
+      .sf-g {
+        stroke: #2ea043; stroke-width: 1.2; stroke-dasharray: 4 3; fill: none;
+        animation: sf .9s linear infinite;
       }
-      @keyframes lp {
-        0%,47%   { opacity: 0; }
-        65%      { opacity: 1; }
-        78%,100% { opacity: 0; }
+      @keyframes sf { from { stroke-dashoffset: 7; } to { stroke-dashoffset: 0; } }
+
+      /* ── Prompt panel: three states swap in/out in sync with node cycle ── */
+      .pv-a { animation: pva 10s ease-in-out infinite; }
+      @keyframes pva {
+        0%,22%   { opacity: 1; }
+        30%,72%  { opacity: 0; }
+        80%,100% { opacity: 1; }
+      }
+      .pv-d { animation: pvd 10s ease-in-out infinite; opacity: 0; }
+      @keyframes pvd {
+        0%,28%  { opacity: 0; }
+        35%,47% { opacity: 1; }
+        55%,100%{ opacity: 0; }
+      }
+      .pv-p { animation: pvp 10s ease-in-out infinite; opacity: 0; }
+      @keyframes pvp {
+        0%,60%  { opacity: 0; }
+        67%,76% { opacity: 1; }
+        84%,100%{ opacity: 0; }
       }
     </style>
 
-    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5"
+    <!-- Arrow markers -->
+    <marker id="ea" viewBox="0 0 8 8" refX="7" refY="4"
             markerWidth="5" markerHeight="5" orient="auto">
-      <path d="M2 2L8 5L2 8" fill="none" stroke="#58a6ff"
+      <path d="M1 1.5L7 4L1 6.5" fill="none" stroke="#30363d"
+            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="ab" viewBox="0 0 8 8" refX="7" refY="4"
+            markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M1 1.5L7 4L1 6.5" fill="none" stroke="#1f6feb"
+            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="ag" viewBox="0 0 8 8" refX="7" refY="4"
+            markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M1 1.5L7 4L1 6.5" fill="none" stroke="#2ea043"
             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </marker>
   </defs>
 
-  <!-- ════ BACKGROUND ════ -->
-  <rect width="820" height="210" rx="14" fill="#0d1117"/>
-  <rect x="0.5" y="0.5" width="819" height="209" rx="13.5"
+  <!-- ── Background ── -->
+  <rect width="820" height="200" rx="12" fill="#0d1117"/>
+  <rect x=".5" y=".5" width="819" height="199" rx="11.5"
         fill="none" stroke="#30363d" stroke-width="1"/>
 
-  <!-- ════ LEFT PANEL — SKILL DOMAINS ════ -->
-  <rect x="14" y="14" width="242" height="182" rx="8"
+  <!-- ── Section dividers ── -->
+  <line x1="268" y1="18" x2="268" y2="188" stroke="#21262d" stroke-width="1"/>
+  <line x1="556" y1="18" x2="556" y2="188" stroke="#21262d" stroke-width="1"/>
+
+  <!-- ── Section labels ── -->
+  <text x="134" y="13" text-anchor="middle" font-size="8" letter-spacing="1.5"
+        font-weight="600" fill="#484f58" font-family="monospace">PREREQUISITE SKILL GRAPH</text>
+  <text x="412" y="13" text-anchor="middle" font-size="8" letter-spacing="1.5"
+        font-weight="600" fill="#484f58" font-family="monospace">OVERSEER AGENT</text>
+  <text x="688" y="13" text-anchor="middle" font-size="8" letter-spacing="1.5"
+        font-weight="600" fill="#484f58" font-family="monospace">PROMPT MODIFICATION</text>
+
+  <!-- ══════════════ SECTION 1: DAG ══════════════ -->
+
+  <!-- Edges (drawn first, nodes render on top) -->
+  <line x1="134" y1="67" x2="82"  y2="97"  stroke="#21262d" stroke-width="1" fill="none" marker-end="url(#ea)"/>
+  <line x1="134" y1="67" x2="190" y2="97"  stroke="#21262d" stroke-width="1" fill="none" marker-end="url(#ea)"/>
+  <line x1="82"  y1="119" x2="50" y2="150" stroke="#21262d" stroke-width="1" fill="none" marker-end="url(#ea)"/>
+  <line x1="82"  y1="119" x2="134" y2="150" stroke="#21262d" stroke-width="1" fill="none" marker-end="url(#ea)"/>
+  <line x1="190" y1="119" x2="134" y2="150" stroke="#21262d" stroke-width="1" fill="none" marker-end="url(#ea)"/>
+  <line x1="190" y1="119" x2="218" y2="150" stroke="#21262d" stroke-width="1" fill="none" marker-end="url(#ea)"/>
+
+  <!-- Nodes -->
+  <rect class="n1" x="107" y="45"  width="54" height="22" rx="5"/>
+  <text x="134" y="59"  text-anchor="middle" font-size="8.5" fill="#e6edf3">Arithmetic</text>
+
+  <rect class="n2" x="47"  y="97"  width="70" height="22" rx="5"/>
+  <text x="82"  y="111" text-anchor="middle" font-size="8.5" fill="#e6edf3">Probability</text>
+
+  <rect class="n3" x="155" y="97"  width="70" height="22" rx="5"/>
+  <text x="190" y="111" text-anchor="middle" font-size="8.5" fill="#e6edf3">Lin. Algebra</text>
+
+  <rect class="n4" x="20"  y="150" width="60" height="22" rx="5"/>
+  <text x="50"  y="164" text-anchor="middle" font-size="8"   fill="#e6edf3">Markov</text>
+
+  <rect class="n5" x="107" y="150" width="54" height="22" rx="5"/>
+  <text x="134" y="164" text-anchor="middle" font-size="8"   fill="#e6edf3">Optim.</text>
+
+  <rect class="n6" x="192" y="150" width="60" height="22" rx="5"/>
+  <text x="222" y="164" text-anchor="middle" font-size="8"   fill="#e6edf3">Neural</text>
+
+  <text x="134" y="190" text-anchor="middle" font-size="7" fill="#484f58"
+        font-style="italic">capability ĉᵥ · prerequisite cascade</text>
+
+  <!-- ── Signal: DAG → Overseer ── -->
+  <line x1="270" y1="103" x2="374" y2="103" class="sf-b" marker-end="url(#ab)"/>
+  <text x="322" y="96" text-anchor="middle" font-size="7.5" fill="#1f6feb">observations</text>
+
+  <!-- ══════════════ SECTION 2: OVERSEER AGENT ══════════════ -->
+
+  <!-- Pulse rings -->
+  <circle class="pr1" cx="412" cy="103" r="20"/>
+  <circle class="pr2" cx="412" cy="103" r="20"/>
+  <circle class="pr3" cx="412" cy="103" r="20"/>
+
+  <!-- Core circle -->
+  <circle class="oc" cx="412" cy="103" r="36"/>
+
+  <!-- Scan arm (translated so rotation pivot = circle center) -->
+  <g transform="translate(412,103)">
+    <g class="sa">
+      <line x1="0" y1="0" x2="0" y2="-33" stroke="#3fb950"
+            stroke-width="1" opacity="0.5"/>
+      <circle cx="0" cy="-30" r="2.5" fill="#3fb950" opacity="0.8"/>
+    </g>
+  </g>
+
+  <!-- Center dot -->
+  <circle cx="412" cy="103" r="4" fill="#3fb950"/>
+
+  <!-- Labels -->
+  <text x="412" y="153" text-anchor="middle" font-size="9"
+        fill="#e6edf3" font-weight="500">Overseer Agent</text>
+  <text x="412" y="165" text-anchor="middle" font-size="7.5" fill="#8b949e">
+    Persistent Cognitive State</text>
+  <text x="412" y="175" text-anchor="middle" font-size="7.5" fill="#8b949e">
+    Approximation Tracking</text>
+  <text x="412" y="188" text-anchor="middle" font-size="7" fill="#484f58"
+        font-style="italic">EKF · Bayesian state estimate</text>
+
+  <!-- ── Signal: Overseer → Prompt ── -->
+  <line x1="450" y1="103" x2="554" y2="103" class="sf-g" marker-end="url(#ag)"/>
+  <text x="502" y="96" text-anchor="middle" font-size="7.5" fill="#2ea043">deterrent u_v</text>
+
+  <!-- ══════════════ SECTION 3: PROMPT MODIFICATION ══════════════ -->
+
+  <!-- Document shell -->
+  <rect x="572" y="22" width="232" height="160" rx="8"
         fill="#161b22" stroke="#30363d" stroke-width="1"/>
-  <text x="135" y="34" text-anchor="middle"
-        font-size="9.5" font-weight="600" fill="#8b949e" letter-spacing="1">SKILL DOMAINS</text>
-  <line x1="24"  y1="40" x2="246" y2="40" stroke="#21262d" stroke-width="1"/>
+  <!-- Title bar -->
+  <rect x="572" y="22" width="232" height="20" rx="8" fill="#21262d"/>
+  <rect x="572" y="35"  width="232" height="7"  fill="#21262d"/>
+  <!-- Traffic lights -->
+  <circle cx="586" cy="32" r="3.5" fill="#f85149" opacity="0.7"/>
+  <circle cx="598" cy="32" r="3.5" fill="#d29922" opacity="0.7"/>
+  <circle cx="610" cy="32" r="3.5" fill="#3fb950" opacity="0.7"/>
+  <text x="688" y="36" text-anchor="middle" font-size="7.5"
+        fill="#8b949e" font-family="monospace">system_prompt.txt</text>
 
-  <!-- atrophy threshold line -->
-  <line x1="28"  y1="104" x2="246" y2="104"
-        stroke="#f85149" stroke-width="0.75" stroke-dasharray="3 3" opacity="0.5"/>
-  <text x="30" y="101" font-size="7" fill="#f85149" opacity="0.65">c* threshold</text>
+  <!-- State: full assist (green) -->
+  <g class="pv-a">
+    <text x="585" y="60" font-size="7.5" fill="#3fb950" font-family="monospace">● mode: full_assist</text>
+    <rect x="585" y="65"  width="130" height="5" rx="2" fill="#238636" opacity=".80"/>
+    <rect x="585" y="74"  width="100" height="5" rx="2" fill="#238636" opacity=".60"/>
+    <rect x="585" y="83"  width="148" height="5" rx="2" fill="#238636" opacity=".45"/>
+    <rect x="585" y="92"  width="82"  height="5" rx="2" fill="#238636" opacity=".35"/>
+    <rect x="585" y="101" width="118" height="5" rx="2" fill="#238636" opacity=".25"/>
+    <rect x="585" y="110" width="95"  height="5" rx="2" fill="#238636" opacity=".18"/>
+    <text x="585" y="136" font-size="7.5" fill="#3fb950" font-family="monospace" opacity=".8">→ complete solution</text>
+    <text x="585" y="147" font-size="7.5" fill="#3fb950" font-family="monospace" opacity=".4">→ step-by-step output</text>
+  </g>
 
-  <!-- bar backgrounds -->
-  <rect x="38"  y="48" width="54" height="80" rx="4" fill="#0d1117"/>
-  <rect x="114" y="48" width="54" height="80" rx="4" fill="#0d1117"/>
-  <rect x="190" y="48" width="54" height="80" rx="4" fill="#0d1117"/>
+  <!-- State: full deferral (red) -->
+  <g class="pv-d">
+    <text x="585" y="60" font-size="7.5" fill="#f85149" font-family="monospace">● mode: full_deferral</text>
+    <rect x="585" y="65"  width="115" height="5" rx="2" fill="#da3633" opacity=".80"/>
+    <rect x="585" y="74"  width="88"  height="5" rx="2" fill="#da3633" opacity=".60"/>
+    <rect x="585" y="83"  width="138" height="5" rx="2" fill="#da3633" opacity=".45"/>
+    <rect x="585" y="92"  width="70"  height="5" rx="2" fill="#da3633" opacity=".35"/>
+    <rect x="585" y="101" width="125" height="5" rx="2" fill="#da3633" opacity=".25"/>
+    <rect x="585" y="110" width="104" height="5" rx="2" fill="#da3633" opacity=".18"/>
+    <text x="585" y="136" font-size="7.5" fill="#f85149" font-family="monospace" opacity=".8">→ teach prerequisites</text>
+    <text x="585" y="147" font-size="7.5" fill="#f85149" font-family="monospace" opacity=".4">→ withhold answer</text>
+  </g>
 
-  <!-- animated bars -->
-  <rect class="bar-a" x="38"  y="48" width="54" height="80" rx="4"/>
-  <rect class="bar-p" x="114" y="48" width="54" height="80" rx="4"/>
-  <rect class="bar-m" x="190" y="48" width="54" height="80" rx="4"/>
+  <!-- State: partial help (amber) -->
+  <g class="pv-p">
+    <text x="585" y="60" font-size="7.5" fill="#d29922" font-family="monospace">● mode: partial_help</text>
+    <rect x="585" y="65"  width="122" height="5" rx="2" fill="#b08800" opacity=".80"/>
+    <rect x="585" y="74"  width="145" height="5" rx="2" fill="#b08800" opacity=".60"/>
+    <rect x="585" y="83"  width="88"  height="5" rx="2" fill="#b08800" opacity=".45"/>
+    <rect x="585" y="92"  width="110" height="5" rx="2" fill="#b08800" opacity=".35"/>
+    <rect x="585" y="101" width="78"  height="5" rx="2" fill="#b08800" opacity=".25"/>
+    <rect x="585" y="110" width="134" height="5" rx="2" fill="#b08800" opacity=".18"/>
+    <text x="585" y="136" font-size="7.5" fill="#d29922" font-family="monospace" opacity=".8">→ first step only</text>
+    <text x="585" y="147" font-size="7.5" fill="#d29922" font-family="monospace" opacity=".4">→ Socratic guidance</text>
+  </g>
 
-  <!-- bar labels -->
-  <text x="65"  y="143" text-anchor="middle" font-size="8.5" fill="#8b949e">Arithmetic</text>
-  <text x="141" y="143" text-anchor="middle" font-size="8.5" fill="#8b949e">Probability</text>
-  <text x="217" y="143" text-anchor="middle" font-size="8.5" fill="#8b949e">Markov</text>
-
-  <!-- caption -->
-  <text x="135" y="182" text-anchor="middle"
-        font-size="7.5" fill="#6e7681" font-style="italic">Latent capability ĉᵥ · EKF estimate</text>
-
-  <!-- ════ ARROW: skills → APAI ════ -->
-  <line x1="258" y1="99" x2="294" y2="99" class="flow-r" marker-end="url(#ah)"/>
-  <text x="276" y="91" text-anchor="middle" font-size="7.5" fill="#58a6ff">signals</text>
-
-  <!-- ════ CENTER PANEL — APAI MIDDLEWARE ════ -->
-  <rect x="296" y="14" width="228" height="182" rx="8"
-        fill="#161b22" stroke="#30363d" stroke-width="1"/>
-  <text x="410" y="34" text-anchor="middle"
-        font-size="9.5" font-weight="600" fill="#8b949e" letter-spacing="1">APAI MIDDLEWARE</text>
-  <line x1="306" y1="40" x2="514" y2="40" stroke="#21262d" stroke-width="1"/>
-
-  <!-- pulse rings -->
-  <circle class="ring"        cx="410" cy="82" r="18"/>
-  <circle class="ring ring2"  cx="410" cy="82" r="18"/>
-  <circle class="ring ring3"  cx="410" cy="82" r="18"/>
-
-  <!-- core dot -->
-  <circle cx="410" cy="82" r="7"   fill="#1f6feb"/>
-  <circle cx="410" cy="82" r="3.5" fill="#58a6ff"/>
-
-  <!-- component stack -->
-  <text x="410" y="116" text-anchor="middle" font-size="9" fill="#8b949e">EKF Capability Estimator</text>
-  <text x="410" y="131" text-anchor="middle" font-size="9" fill="#8b949e">Optimal Assistance Policy</text>
-  <text x="410" y="146" text-anchor="middle" font-size="9" fill="#8b949e">LLM Prompt Modulator</text>
-  <text x="410" y="161" text-anchor="middle" font-size="9" fill="#8b949e">Prerequisite DAG Tracker</text>
-
-  <text x="410" y="182" text-anchor="middle"
-        font-size="7.5" fill="#6e7681" font-style="italic">Monitors · Estimates · Adapts</text>
-
-  <!-- ════ ARROW: APAI → AI ════ -->
-  <line x1="526" y1="99" x2="562" y2="99" class="flow-r" marker-end="url(#ah)"/>
-  <text x="544" y="91" text-anchor="middle" font-size="7.5" fill="#58a6ff">policy</text>
-
-  <!-- ════ RIGHT PANEL — AI ASSISTANCE ════ -->
-  <rect x="564" y="14" width="242" height="182" rx="8"
-        fill="#161b22" stroke="#30363d" stroke-width="1"/>
-  <text x="685" y="34" text-anchor="middle"
-        font-size="9.5" font-weight="600" fill="#8b949e" letter-spacing="1">AI ASSISTANCE</text>
-  <line x1="574" y1="40" x2="796" y2="40" stroke="#21262d" stroke-width="1"/>
-
-  <!-- level labels (left of bar) -->
-  <text x="576" y="59"  font-size="8" fill="#f85149" opacity="0.8">Full Deferral</text>
-  <text x="576" y="92"  font-size="8" fill="#d29922" opacity="0.8">Partial Help</text>
-  <text x="576" y="125" font-size="8" fill="#3fb950" opacity="0.8">Full Assist.</text>
-
-  <!-- dashed level lines across bar -->
-  <line x1="650" y1="55"  x2="706" y2="55"  stroke="#f85149" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.3"/>
-  <line x1="650" y1="88"  x2="706" y2="88"  stroke="#d29922" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.3"/>
-  <line x1="650" y1="121" x2="706" y2="121" stroke="#3fb950" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.3"/>
-
-  <!-- bar background -->
-  <rect x="652" y="48" width="50" height="80" rx="4" fill="#0d1117"/>
-
-  <!-- animated assistance bar -->
-  <rect class="bar-ai" x="652" y="48" width="50" height="80" rx="4"/>
-
-  <!-- mode label (three overlapping texts, toggled by opacity) -->
-  <text class="lbl-full" x="685" y="148" text-anchor="middle"
-        font-size="9.5" fill="#3fb950">Full Assistance</text>
-  <text class="lbl-defl" x="685" y="148" text-anchor="middle"
-        font-size="9.5" fill="#f85149">Full Deferral</text>
-  <text class="lbl-part" x="685" y="148" text-anchor="middle"
-        font-size="9.5" fill="#d29922">Partial Help</text>
-
-  <text x="685" y="163" text-anchor="middle"
-        font-size="8.5" fill="#8b949e">system prompt modulated</text>
-  <text x="685" y="177" text-anchor="middle"
-        font-size="7.5" fill="#6e7681" font-style="italic">via Gemini 2.5 Flash API</text>
+  <text x="688" y="190" text-anchor="middle" font-size="7" fill="#484f58"
+        font-style="italic">Gemini 2.5 Flash · modulated via u_v ∈ [0,1]</text>
 </svg>
